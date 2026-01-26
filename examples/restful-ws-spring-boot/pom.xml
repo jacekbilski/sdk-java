@@ -48,11 +48,6 @@
         </dependency>
         <dependency>
             <groupId>io.cloudevents</groupId>
-            <artifactId>cloudevents-http-restful-ws</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cloudevents</groupId>
             <artifactId>cloudevents-spring</artifactId>
             <version>5.0.0-SNAPSHOT</version>
             <scope>compile</scope>
