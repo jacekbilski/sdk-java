@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Disabled("ContentType behaves odd after upgrading from deprecated TestRestTemplate")
+//@Disabled("ContentType behaves odd after upgrading from deprecated TestRestTemplate")
 class DemoApplicationTests {
     private static final String BODY = "{\"value\":\"Dave\"}";
 	private RestTestClient rest;
