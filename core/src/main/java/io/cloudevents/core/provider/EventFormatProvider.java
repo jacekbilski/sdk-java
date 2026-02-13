@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.StreamSupport;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 import io.cloudevents.core.format.ContentType;
 import io.cloudevents.core.format.EventFormat;

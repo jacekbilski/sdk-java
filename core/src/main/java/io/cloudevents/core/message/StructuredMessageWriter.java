@@ -20,7 +20,7 @@ package io.cloudevents.core.message;
 import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.rw.CloudEventRWException;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Interface to write the {@link MessageReader} content (CloudEvents attributes, extensions and payload) to a new representation structured representation.

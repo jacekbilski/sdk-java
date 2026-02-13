@@ -17,15 +17,15 @@
 
 package io.cloudevents.lang;
 
-import javax.annotation.Nonnull;
-import javax.annotation.meta.TypeQualifierNickname;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.meta.TypeQualifierNickname;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.annotation.meta.When.MAYBE;
+import static jakarta.annotation.meta.When.MAYBE;
 
 /**
  * This annotation is used to define a method parameter or return type as nullable.

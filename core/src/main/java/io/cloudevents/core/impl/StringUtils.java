@@ -17,7 +17,7 @@
 
 package io.cloudevents.core.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 final public class StringUtils {
 

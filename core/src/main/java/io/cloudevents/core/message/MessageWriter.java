@@ -24,7 +24,7 @@ import io.cloudevents.core.message.impl.GenericStructuredMessageReader;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.rw.CloudEventWriterFactory;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Interface to write the {@link MessageReader} content (CloudEvents attributes, extensions and payload) to a new representation.

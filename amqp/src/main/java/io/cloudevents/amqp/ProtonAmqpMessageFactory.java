@@ -32,7 +32,7 @@ import org.apache.qpid.proton.amqp.messaging.ApplicationProperties;
 import org.apache.qpid.proton.amqp.messaging.Section;
 import org.apache.qpid.proton.message.Message;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 /**
  * A factory class providing convenience methods for creating {@link MessageReader} and {@link MessageWriter} instances based on Qpid Proton {@link Message}.

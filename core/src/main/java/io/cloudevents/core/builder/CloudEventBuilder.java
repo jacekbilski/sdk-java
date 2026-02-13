@@ -20,8 +20,8 @@ package io.cloudevents.core.builder;
 import io.cloudevents.*;
 import io.cloudevents.rw.CloudEventWriter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNullableByDefault;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.ParametersAreNullableByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 

@@ -19,7 +19,7 @@ package io.cloudevents.rw;
 
 import io.cloudevents.CloudEventData;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Interface to convert a {@link CloudEventData} instance to another one.

@@ -17,7 +17,7 @@
 
 package io.cloudevents.rw;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Represents an object that can be read as CloudEvent context attributes and extensions.

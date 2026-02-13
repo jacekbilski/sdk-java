@@ -19,7 +19,7 @@ package io.cloudevents.rw;
 
 import io.cloudevents.types.Time;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Base64;

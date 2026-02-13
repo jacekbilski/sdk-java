@@ -23,7 +23,7 @@ import io.cloudevents.core.extensions.DatarefExtension;
 import io.cloudevents.core.extensions.DistributedTracingExtension;
 import io.cloudevents.lang.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import jakarta.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
