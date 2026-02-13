@@ -17,17 +17,16 @@
 
 package io.cloudevents.core.provider;
 
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
+import io.cloudevents.core.format.ContentType;
+import io.cloudevents.core.format.EventFormat;
+import io.cloudevents.lang.Nullable;
+
 import java.util.HashMap;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.StreamSupport;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-
-import io.cloudevents.core.format.ContentType;
-import io.cloudevents.core.format.EventFormat;
-import io.cloudevents.lang.Nullable;
 
 /**
  * Singleton holding the discovered {@link EventFormat} implementations through
@@ -75,7 +74,7 @@ public final class EventFormatProvider {
 
 	/**
 	 * Enumerate the supported content types.
-	 * 
+	 *
 	 * @return an alphabetically sorted list of content types
 	 */
 	public Set<String> getContentTypes() {

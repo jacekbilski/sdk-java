@@ -1,5 +1,6 @@
 package io.cloudevents.http.vertx;
 
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import io.cloudevents.core.message.MessageReader;
 import io.cloudevents.core.message.MessageWriter;
 import io.cloudevents.core.message.impl.GenericStructuredMessageReader;
@@ -21,8 +22,6 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.HttpResponse;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * This class provides a collection of methods to create {@link io.cloudevents.core.message.MessageReader}

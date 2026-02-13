@@ -19,7 +19,7 @@ package io.cloudevents.rw;
 
 import io.cloudevents.CloudEventData;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 
 /**
  * Interface to convert a {@link CloudEventData} instance to another one.

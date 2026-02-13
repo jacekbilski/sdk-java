@@ -19,7 +19,7 @@ package io.cloudevents;
 
 import io.cloudevents.rw.CloudEventRWException;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

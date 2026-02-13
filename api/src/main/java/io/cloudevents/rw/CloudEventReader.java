@@ -17,9 +17,8 @@
 
 package io.cloudevents.rw;
 
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import io.cloudevents.CloudEventData;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Represents an object that can be read as CloudEvent.

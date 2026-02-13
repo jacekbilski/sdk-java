@@ -45,3 +45,6 @@ _site/
 
 # MacOS
 *.DS_Store
+
+# AI
+.junie

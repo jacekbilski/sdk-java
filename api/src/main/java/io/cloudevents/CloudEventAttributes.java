@@ -19,7 +19,7 @@ package io.cloudevents;
 
 import io.cloudevents.lang.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Set;

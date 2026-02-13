@@ -21,7 +21,7 @@ import io.cloudevents.CloudEvent;
 import io.cloudevents.CloudEventData;
 import io.cloudevents.rw.CloudEventDataMapper;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import java.util.Collections;
 import java.util.Set;
 

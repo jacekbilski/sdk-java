@@ -25,11 +25,12 @@ import io.cloudevents.core.builder.CloudEventBuilder;
 import io.cloudevents.core.data.BytesCloudEventData;
 import io.cloudevents.rw.CloudEventRWException;
 
-import javax.annotation.Nonnull;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 import static io.cloudevents.core.v03.CloudEventV03.SPECVERSION;
 
@@ -116,7 +117,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
         return this.self;
     }
 
-    public SELF withExtension(@Nonnull String key, @Nonnull String value) {
+    public SELF withExtension(@NonNull String key, @NonNull String value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -127,7 +128,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
     // @TODO - I think this method should be removed/deprecated
     // **Number** Is NOT a valid CE Context atrribute type.
 
-    public SELF withExtension(@Nonnull String key, @Nonnull Number value) {
+    public SELF withExtension(@NonNull String key, @NonNull Number value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -135,7 +136,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
         return self;
     }
 
-    public SELF withExtension(@Nonnull String key, @Nonnull Integer value) {
+    public SELF withExtension(@NonNull String key, @NonNull Integer value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -143,16 +144,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
         return self;
     }
 
-    public SELF withExtension(@Nonnull String key, @Nonnull Boolean value) {
-        if (!isValidExtensionName(key)) {
-            throw CloudEventRWException.newInvalidExtensionName(key);
-        }
-        this.extensions.put(key, value);
-        return self;
-    }
-
-    @Override
-    public SELF withExtension(@Nonnull String key, @Nonnull URI value) {
+    public SELF withExtension(@NonNull String key, @NonNull Boolean value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -161,7 +153,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
     }
 
     @Override
-    public SELF withExtension(@Nonnull String key, @Nonnull OffsetDateTime value) {
+    public SELF withExtension(@NonNull String key, @NonNull URI value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -170,7 +162,7 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
     }
 
     @Override
-    public CloudEventBuilder withExtension(@Nonnull String key, @Nonnull byte[] value) {
+    public SELF withExtension(@NonNull String key, @NonNull OffsetDateTime value) {
         if (!isValidExtensionName(key)) {
             throw CloudEventRWException.newInvalidExtensionName(key);
         }
@@ -179,18 +171,27 @@ public abstract class BaseCloudEventBuilder<SELF extends BaseCloudEventBuilder<S
     }
 
     @Override
-    public SELF withoutExtension(@Nonnull String key) {
+    public CloudEventBuilder withExtension(@NonNull String key, @NonNull byte[] value) {
+        if (!isValidExtensionName(key)) {
+            throw CloudEventRWException.newInvalidExtensionName(key);
+        }
+        this.extensions.put(key, value);
+        return self;
+    }
+
+    @Override
+    public SELF withoutExtension(@NonNull String key) {
         this.extensions.remove(key);
         return self;
     }
 
     @Override
-    public SELF withoutExtension(@Nonnull CloudEventExtension extension) {
+    public SELF withoutExtension(@NonNull CloudEventExtension extension) {
         extension.getKeys().forEach(this::withoutExtension);
         return self;
     }
 
-    public SELF withExtension(@Nonnull CloudEventExtension extension) {
+    public SELF withExtension(@NonNull CloudEventExtension extension) {
         for (String key : extension.getKeys()) {
             Object value = extension.getValue(key);
             if (value != null) {

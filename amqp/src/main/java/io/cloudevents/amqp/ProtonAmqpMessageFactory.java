@@ -17,6 +17,7 @@
 
 package io.cloudevents.amqp;
 
+import edu.umd.cs.findbugs.annotations.ParametersAreNonnullByDefault;
 import io.cloudevents.SpecVersion;
 import io.cloudevents.amqp.impl.AmqpConstants;
 import io.cloudevents.amqp.impl.ProtonAmqpBinaryMessageReader;
@@ -31,8 +32,6 @@ import io.cloudevents.rw.CloudEventWriter;
 import org.apache.qpid.proton.amqp.messaging.ApplicationProperties;
 import org.apache.qpid.proton.amqp.messaging.Section;
 import org.apache.qpid.proton.message.Message;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * A factory class providing convenience methods for creating {@link MessageReader} and {@link MessageWriter} instances based on Qpid Proton {@link Message}.
