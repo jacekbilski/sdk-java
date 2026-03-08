@@ -42,7 +42,9 @@ public class CloudEventMessageConverter implements MessageConverter {
 	@Override
 	public Object fromMessage(Message<?> message, Class<?> targetClass) {
 		if (CloudEvent.class.isAssignableFrom(targetClass)) {
-			return createMessageReader(message).toEvent();
+            MessageReader messageReader = createMessageReader(message);
+            CloudEvent event = messageReader.toEvent();
+            return event;
 		}
 		return null;
 	}
@@ -57,6 +59,8 @@ public class CloudEventMessageConverter implements MessageConverter {
 	}
 
 	private MessageReader createMessageReader(Message<?> message) {
+        // 3.1.2 message has headers and payload, but payload includes cloud event headers
+        // 3.1.3 message has headers and payload, but cloud event headers were moved to headers with "ce-" prefix
 		return MessageUtils.parseStructuredOrBinaryMessage( //
 				() -> contentType(message.getHeaders()), //
 				format -> structuredMessageReader(message, format), //
@@ -92,6 +96,8 @@ public class CloudEventMessageConverter implements MessageConverter {
 
 	private byte[] getBinaryData(Message<?> message) {
 		Object payload = message.getPayload();
+        // in 3.1.3 payload is a LinkedHashMap, and contains really only the payload
+        // in 3.1.2 payload is a String and is a full message, including headers
 		if (payload instanceof byte[]) {
 			return (byte[]) payload;
 		}
