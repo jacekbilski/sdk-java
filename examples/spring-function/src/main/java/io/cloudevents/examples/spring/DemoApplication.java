@@ -26,12 +26,15 @@ public class DemoApplication {
 
 	@Bean
 	public Function<CloudEvent, CloudEvent> events() {
-		return event -> CloudEventBuilder.from(event)
-				.withId(UUID.randomUUID().toString())
-				.withSource(URI.create("https://spring.io/foos"))
-				.withType("io.spring.event.Foo")
-				.withData(event.getData().toBytes())
-				.build();
+		return event -> {
+            System.out.println("Received: " + event);
+            return CloudEventBuilder.from(event)
+                .withId(UUID.randomUUID().toString())
+                .withSource(URI.create("https://spring.io/foos"))
+                .withType("io.spring.event.Foo")
+                .withData(event.getData().toBytes())
+                .build();
+        };
 	}
 
 	/**
