@@ -1,6 +1,6 @@
 package io.cloudevents.examples.quarkus.resources;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.examples.quarkus.model.User;
 import io.cloudevents.jackson.JsonFormat;
@@ -25,12 +25,12 @@ public class UserResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    ObjectMapper mapper;
+    JsonMapper mapper;
 
     @Context
     UriInfo uriInfo;
 
-    private Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     @GET
     @Path("/{username}")

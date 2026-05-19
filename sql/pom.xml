@@ -15,7 +15,7 @@
 
     <properties>
         <module-name>io.cloudevents.sql</module-name>
-        <antlr.version>4.9.3</antlr.version>
+        <antlr.version>4.13.2</antlr.version>
     </properties>
 
     <dependencies>
@@ -56,9 +56,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <groupId>tools.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.15.2</version>
+            <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -17,30 +17,25 @@
 
 package io.cloudevents.examples.springboot;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;
 import io.cloudevents.core.data.PojoCloudEventData;
 import io.cloudevents.jackson.PojoCloudEventDataMapper;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import tools.jackson.databind.json.JsonMapper;
 
 import static io.cloudevents.core.CloudEventUtils.mapData;
 
 @RestController
 public class MainResource {
-
     public static final String HAPPY_BIRTHDAY_EVENT_TYPE = "happybirthday.myapplication";
-
-    private final ObjectMapper objectMapper;
-
-    public MainResource(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    @Autowired
+    private JsonMapper jsonMapper;
 
     @PostMapping("/happy_birthday")
     public ResponseEntity handleHappyBirthdayEvent(@RequestBody CloudEvent inputEvent) {
@@ -50,7 +45,7 @@ public class MainResource {
                 .body("Event type should be \"" + HAPPY_BIRTHDAY_EVENT_TYPE + "\" but is \"" + inputEvent.getType() + "\"");
         }
 
-        PojoCloudEventData<User> cloudEventData = mapData(inputEvent, PojoCloudEventDataMapper.from(objectMapper, User.class));
+        PojoCloudEventData<User> cloudEventData = mapData(inputEvent, PojoCloudEventDataMapper.from(jsonMapper, User.class));
 
         if (cloudEventData == null) {
             return ResponseEntity.badRequest()
@@ -61,9 +56,7 @@ public class MainResource {
         User user = cloudEventData.getValue();
         user.setAge(user.getAge() + 1);
 
-        CloudEvent outputEvent = CloudEventBuilder.from(inputEvent)
-            .withData(PojoCloudEventData.wrap(user, objectMapper::writeValueAsBytes))
-            .build();
+        CloudEvent outputEvent = CloudEventBuilder.from(inputEvent).withData(PojoCloudEventData.wrap(user, jsonMapper::writeValueAsBytes)).build();
 
         return ResponseEntity.ok(outputEvent);
     }

@@ -44,11 +44,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-        </dependency>
-
         <!-- Test deps -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
