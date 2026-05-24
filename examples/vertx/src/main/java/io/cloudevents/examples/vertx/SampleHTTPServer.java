@@ -36,7 +36,8 @@ public class SampleHTTPServer {
 
 
             })
-            .listen(port, server -> {
+            .listen(port)
+            .onComplete(server -> {
                 if (server.succeeded()) {
                     System.out.println(
                         "Server listening on port: " + server.result().actualPort()
