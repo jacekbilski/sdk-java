@@ -23,6 +23,8 @@ import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.core.message.MessageReader;
 import io.cloudevents.core.message.impl.GenericStructuredMessageReader;
 import io.cloudevents.core.message.impl.MessageUtils;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.converter.MessageConverter;
@@ -39,16 +41,16 @@ import java.nio.charset.StandardCharsets;
  */
 public class CloudEventMessageConverter implements MessageConverter {
 
-	@Override
-	public Object fromMessage(Message<?> message, Class<?> targetClass) {
+    @Override
+    public @Nullable Object fromMessage(Message<?> message, Class<?> targetClass) {
 		if (CloudEvent.class.isAssignableFrom(targetClass)) {
 			return createMessageReader(message).toEvent();
 		}
 		return null;
 	}
 
-	@Override
-	public Message<?> toMessage(Object payload, MessageHeaders headers) {
+    @Override
+    public @Nullable Message<?> toMessage(Object payload, MessageHeaders headers) {
 		if (payload instanceof CloudEvent event) {
 			return CloudEventUtils.toReader(event).read(new MessageBuilderMessageWriter(headers));
 		}

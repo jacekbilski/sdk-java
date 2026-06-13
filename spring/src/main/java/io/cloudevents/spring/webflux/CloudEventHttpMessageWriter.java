@@ -25,6 +25,7 @@ import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.spring.http.CloudEventsHeaders;
+import org.jspecify.annotations.NonNull;
 import org.reactivestreams.Publisher;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -76,7 +77,7 @@ public class CloudEventHttpMessageWriter implements HttpMessageWriter<CloudEvent
         // Binary visitor factory
 
         @Override
-        public CloudEventWriter<Mono<Void>> create(SpecVersion version) {
+        public CloudEventWriter<Mono<Void>> create(@NonNull SpecVersion version) {
             this.response.getHeaders().set(CloudEventsHeaders.SPEC_VERSION, version.toString());
             return this;
         }
@@ -84,7 +85,7 @@ public class CloudEventHttpMessageWriter implements HttpMessageWriter<CloudEvent
         // Binary visitor
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
             String headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
             if (headerName == null) {
                 headerName = "ce-" + name;
@@ -94,7 +95,7 @@ public class CloudEventHttpMessageWriter implements HttpMessageWriter<CloudEvent
         }
 
         @Override
-        public Mono<Void> end(CloudEventData value) throws CloudEventRWException {
+        public Mono<Void> end(@NonNull CloudEventData value) throws CloudEventRWException {
             return copy(value.toBytes(), this.response);
         }
 

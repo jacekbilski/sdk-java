@@ -18,8 +18,8 @@
 package io.cloudevents;
 
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NullMarked;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 /**
  * Represents one of the supported CloudEvents specification versions by this library
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public enum SpecVersion {
     /**
      * @see <a href="https://github.com/cloudevents/spec/releases/tag/v0.3">CloudEvents release v0.3</a>

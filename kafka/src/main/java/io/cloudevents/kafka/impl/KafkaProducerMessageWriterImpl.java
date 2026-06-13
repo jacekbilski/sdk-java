@@ -21,6 +21,7 @@ import io.cloudevents.SpecVersion;
 import io.cloudevents.core.v1.CloudEventV1;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.internals.RecordHeaders;
+import org.jspecify.annotations.NonNull;
 
 public final class KafkaProducerMessageWriterImpl<K>
     extends BaseKafkaMessageWriterImpl<ProducerRecord<K, byte[]>> {
@@ -44,7 +45,7 @@ public final class KafkaProducerMessageWriterImpl<K>
     }
 
     @Override
-    public KafkaProducerMessageWriterImpl<K> create(SpecVersion version) {
+    public KafkaProducerMessageWriterImpl<K> create(@NonNull SpecVersion version) {
         this.withContextAttribute(CloudEventV1.SPECVERSION, version.toString());
         return this;
     }

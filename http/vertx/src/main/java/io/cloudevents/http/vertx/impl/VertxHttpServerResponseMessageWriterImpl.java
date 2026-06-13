@@ -26,6 +26,7 @@ import io.cloudevents.rw.CloudEventWriter;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServerResponse;
+import org.jspecify.annotations.NonNull;
 
 public class VertxHttpServerResponseMessageWriterImpl implements MessageWriter<CloudEventWriter<HttpServerResponse>, HttpServerResponse>, CloudEventWriter<HttpServerResponse> {
 
@@ -38,7 +39,7 @@ public class VertxHttpServerResponseMessageWriterImpl implements MessageWriter<C
     // Binary visitor factory
 
     @Override
-    public CloudEventWriter<HttpServerResponse> create(SpecVersion version) {
+    public CloudEventWriter<HttpServerResponse> create(@NonNull SpecVersion version) {
         this.response.putHeader(CloudEventsHeaders.SPEC_VERSION, version.toString());
         return this;
     }
@@ -46,7 +47,7 @@ public class VertxHttpServerResponseMessageWriterImpl implements MessageWriter<C
     // Binary visitor
 
     @Override
-    public VertxHttpServerResponseMessageWriterImpl withContextAttribute(String name, String value) throws CloudEventRWException {
+    public VertxHttpServerResponseMessageWriterImpl withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         CharSequence headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = "ce-" + name;
@@ -56,7 +57,7 @@ public class VertxHttpServerResponseMessageWriterImpl implements MessageWriter<C
     }
 
     @Override
-    public HttpServerResponse end(CloudEventData value) throws CloudEventRWException {
+    public HttpServerResponse end(@NonNull CloudEventData value) throws CloudEventRWException {
         if (this.response.ended()) {
             throw CloudEventRWException.newOther(new IllegalStateException("Cannot set the body because the response is already ended"));
         }

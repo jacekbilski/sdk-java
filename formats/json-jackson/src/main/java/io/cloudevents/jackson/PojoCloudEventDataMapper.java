@@ -8,6 +8,7 @@ import io.cloudevents.CloudEventData;
 import io.cloudevents.core.data.PojoCloudEventData;
 import io.cloudevents.rw.CloudEventDataMapper;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class PojoCloudEventDataMapper<T> implements CloudEventDataMapper<PojoClo
     }
 
     @Override
-    public PojoCloudEventData<T> map(CloudEventData data) throws CloudEventRWException {
+    public PojoCloudEventData<T> map(@NonNull CloudEventData data) throws CloudEventRWException {
         // Best case, event is already from json
         if (data instanceof JsonCloudEventData eventData) {
             JsonNode node = eventData.getNode();

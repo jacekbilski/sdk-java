@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.kafka.common.header.Headers;
 import org.apache.kafka.common.header.internals.RecordHeader;
+import org.jspecify.annotations.NonNull;
 
 abstract class BaseKafkaMessageWriterImpl<R> implements MessageWriter<CloudEventWriter<R>, R>, CloudEventWriter<R> {
 
@@ -38,7 +39,7 @@ abstract class BaseKafkaMessageWriterImpl<R> implements MessageWriter<CloudEvent
     }
 
     @Override
-    public BaseKafkaMessageWriterImpl<R> withContextAttribute(String name, String value) throws CloudEventRWException {
+    public BaseKafkaMessageWriterImpl<R> withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         String headerName = KafkaHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = KafkaHeaders.CE_PREFIX + name;
@@ -48,7 +49,7 @@ abstract class BaseKafkaMessageWriterImpl<R> implements MessageWriter<CloudEvent
     }
 
     @Override
-    public R end(CloudEventData value) throws CloudEventRWException {
+    public R end(@NonNull CloudEventData value) throws CloudEventRWException {
         this.value = value.toBytes();
         return this.end();
     }

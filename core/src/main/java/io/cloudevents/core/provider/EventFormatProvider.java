@@ -17,17 +17,16 @@
 
 package io.cloudevents.core.provider;
 
+import io.cloudevents.core.format.ContentType;
+import io.cloudevents.core.format.EventFormat;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.StreamSupport;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-
-import io.cloudevents.core.format.ContentType;
-import io.cloudevents.core.format.EventFormat;
-import io.cloudevents.lang.Nullable;
 
 /**
  * Singleton holding the discovered {@link EventFormat} implementations through
@@ -39,7 +38,7 @@ import io.cloudevents.lang.Nullable;
  * You can programmatically add a new {@link EventFormat} implementation using
  * {@link #registerFormat(EventFormat)}.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public final class EventFormatProvider {
 
 	private static class SingletonContainer {
@@ -75,7 +74,7 @@ public final class EventFormatProvider {
 
 	/**
 	 * Enumerate the supported content types.
-	 * 
+	 *
 	 * @return an alphabetically sorted list of content types
 	 */
 	public Set<String> getContentTypes() {
@@ -84,14 +83,13 @@ public final class EventFormatProvider {
 		return types;
 	}
 
-	/**
-	 * Resolve an event format starting from the content type.
-	 *
-	 * @param contentType the content type to resolve the event format
-	 * @return null if no format was found for the provided content type
-	 */
-	@Nullable
-	public EventFormat resolveFormat(String contentType) {
+    /**
+     * Resolve an event format starting from the content type.
+     *
+     * @param contentType the content type to resolve the event format
+     * @return null if no format was found for the provided content type
+     */
+    public @Nullable EventFormat resolveFormat(String contentType) {
 		int i = contentType.indexOf(';');
 		if (i != -1) {
 			contentType = contentType.substring(0, i);
@@ -99,14 +97,13 @@ public final class EventFormatProvider {
 		return this.formats.get(contentType);
 	}
 
-	/**
-	 * Resolve an event format starting from the content type.
-	 *
-	 * @param contentType the content type to resolve the event format
-	 * @return null if no format was found for the provided content type
-	 */
-	@Nullable
-	public EventFormat resolveFormat(ContentType contentType) {
+    /**
+     * Resolve an event format starting from the content type.
+     *
+     * @param contentType the content type to resolve the event format
+     * @return null if no format was found for the provided content type
+     */
+    public @Nullable EventFormat resolveFormat(ContentType contentType) {
 		return this.formats.get(contentType.value());
 	}
 }

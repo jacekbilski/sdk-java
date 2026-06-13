@@ -23,6 +23,7 @@ import io.cloudevents.core.CloudEventUtils;
 import io.cloudevents.rw.CloudEventContextReader;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NonNull;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.SerializationContext;
@@ -55,7 +56,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
             try {
                 gen.writeStringProperty(name, value);
                 return this;
@@ -65,7 +66,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException {
             // Only Integer types are supported by the specification
             if (value instanceof Integer integer) {
                 this.withContextAttribute(name, integer);
@@ -77,7 +78,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Integer value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Integer value) throws CloudEventRWException {
             try {
                 gen.writeNumberProperty(name, value);
                 return this;
@@ -87,7 +88,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
             try {
                 gen.writeBooleanProperty(name, value);
                 return this;

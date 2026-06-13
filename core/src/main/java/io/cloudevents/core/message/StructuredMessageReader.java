@@ -23,14 +23,14 @@ import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.core.message.impl.GenericStructuredMessageReader;
 import io.cloudevents.rw.CloudEventDataMapper;
 import io.cloudevents.rw.CloudEventRWException;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents a <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#message">CloudEvent message</a> in structured mode.
  */
 @FunctionalInterface
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface StructuredMessageReader {
 
     /**
@@ -59,7 +59,7 @@ public interface StructuredMessageReader {
      * @param contentType content type to use to resolve the {@link EventFormat}
      * @return null if format was not found, otherwise returns the built message
      */
-    static StructuredMessageReader from(CloudEvent event, String contentType) {
+    static @Nullable StructuredMessageReader from(CloudEvent event, String contentType) {
         return GenericStructuredMessageReader.from(event, contentType);
     }
 
@@ -68,7 +68,7 @@ public interface StructuredMessageReader {
      *
      * @param event the event to convert to {@link StructuredMessageReader}
      * @param format the format to use to perform the conversion
-     * @return null if format was not found, otherwise returns the built message
+     * @return returns the built message
      */
     static StructuredMessageReader from(CloudEvent event, EventFormat format) {
         return GenericStructuredMessageReader.from(event, format);

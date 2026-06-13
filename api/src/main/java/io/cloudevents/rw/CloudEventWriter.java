@@ -18,6 +18,7 @@
 package io.cloudevents.rw;
 
 import io.cloudevents.CloudEventData;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Interface to write the content (CloudEvents attributes, extensions and payload) from a
@@ -25,6 +26,7 @@ import io.cloudevents.CloudEventData;
  *
  * @param <R> return value at the end of the write process
  */
+@NullMarked
 public interface CloudEventWriter<R> extends CloudEventContextWriter {
 
     /**

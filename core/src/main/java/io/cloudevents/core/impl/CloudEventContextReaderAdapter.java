@@ -21,10 +21,12 @@ import io.cloudevents.CloudEventContext;
 import io.cloudevents.rw.CloudEventContextReader;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NullMarked;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
 
+@NullMarked
 public class CloudEventContextReaderAdapter implements CloudEventContextReader {
 
     private final CloudEventContext event;

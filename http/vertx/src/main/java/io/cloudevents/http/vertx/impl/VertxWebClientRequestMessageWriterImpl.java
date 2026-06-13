@@ -28,6 +28,7 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.HttpResponse;
+import org.jspecify.annotations.NonNull;
 
 public class VertxWebClientRequestMessageWriterImpl implements MessageWriter<CloudEventWriter<Future<HttpResponse<Buffer>>>, Future<HttpResponse<Buffer>>>, CloudEventWriter<Future<HttpResponse<Buffer>>> {
 
@@ -40,7 +41,7 @@ public class VertxWebClientRequestMessageWriterImpl implements MessageWriter<Clo
     // Binary visitor factory
 
     @Override
-    public CloudEventWriter<Future<HttpResponse<Buffer>>> create(SpecVersion version) {
+    public CloudEventWriter<Future<HttpResponse<Buffer>>> create(@NonNull SpecVersion version) {
         this.request.headers().add(CloudEventsHeaders.SPEC_VERSION, version.toString());
         return this;
     }
@@ -48,7 +49,7 @@ public class VertxWebClientRequestMessageWriterImpl implements MessageWriter<Clo
     // Binary visitor
 
     @Override
-    public VertxWebClientRequestMessageWriterImpl withContextAttribute(String name, String value) throws CloudEventRWException {
+    public VertxWebClientRequestMessageWriterImpl withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         CharSequence headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = "ce-" + name;
@@ -58,7 +59,7 @@ public class VertxWebClientRequestMessageWriterImpl implements MessageWriter<Clo
     }
 
     @Override
-    public Future<HttpResponse<Buffer>> end(CloudEventData value) throws CloudEventRWException {
+    public Future<HttpResponse<Buffer>> end(@NonNull CloudEventData value) throws CloudEventRWException {
         return this.request.sendBuffer(Buffer.buffer(value.toBytes()));
     }
 

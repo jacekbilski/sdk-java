@@ -21,6 +21,8 @@ import io.cloudevents.SpecVersion;
 import io.cloudevents.core.impl.BaseCloudEvent;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -33,6 +35,7 @@ import java.util.Objects;
  * @author fabiojose
  * @author slinkydeveloper
  */
+@NullMarked
 public final class CloudEventV1 extends BaseCloudEvent {
 
     /**
@@ -78,15 +81,22 @@ public final class CloudEventV1 extends BaseCloudEvent {
     private final String id;
     private final URI source;
     private final String type;
-    private final String datacontenttype;
-    private final URI dataschema;
-    private final String subject;
-    private final OffsetDateTime time;
+    @Nullable private final String datacontenttype;
+    @Nullable private final URI dataschema;
+    @Nullable private final String subject;
+    @Nullable private final OffsetDateTime time;
 
-    public CloudEventV1(String id, URI source,
-                        String type, String datacontenttype,
-                        URI dataschema, String subject, OffsetDateTime time,
-                        CloudEventData data, Map<String, Object> extensions) {
+    public CloudEventV1(
+        String id,
+        URI source,
+        String type,
+        @Nullable String datacontenttype,
+        @Nullable URI dataschema,
+        @Nullable String subject,
+        @Nullable OffsetDateTime time,
+        @Nullable CloudEventData data,
+        @Nullable Map<String, Object> extensions
+    ) {
         super(data, extensions);
 
         this.id = id;
@@ -115,44 +125,36 @@ public final class CloudEventV1 extends BaseCloudEvent {
     }
 
     @Override
-    public String getDataContentType() {
+    public @Nullable String getDataContentType() {
         return datacontenttype;
     }
 
     @Override
-    public URI getDataSchema() {
+    public @Nullable URI getDataSchema() {
         return dataschema;
     }
 
-    public String getSubject() {
+    public @Nullable String getSubject() {
         return subject;
     }
 
-    public OffsetDateTime getTime() {
+    public @Nullable OffsetDateTime getTime() {
         return time;
     }
 
     @Override
-    public Object getAttribute(String attributeName) {
-        switch (attributeName) {
-            case SPECVERSION:
-                return getSpecVersion();
-            case ID:
-                return this.id;
-            case SOURCE:
-                return this.source;
-            case TYPE:
-                return this.type;
-            case DATACONTENTTYPE:
-                return this.datacontenttype;
-            case DATASCHEMA:
-                return this.dataschema;
-            case SUBJECT:
-                return this.subject;
-            case TIME:
-                return this.time;
-        }
-        throw new IllegalArgumentException("Spec version v1 doesn't have attribute named " + attributeName);
+    public @Nullable Object getAttribute(String attributeName) {
+        return switch (attributeName) {
+            case SPECVERSION -> getSpecVersion();
+            case ID -> this.id;
+            case SOURCE -> this.source;
+            case TYPE -> this.type;
+            case DATACONTENTTYPE -> this.datacontenttype;
+            case DATASCHEMA -> this.dataschema;
+            case SUBJECT -> this.subject;
+            case TIME -> this.time;
+            default -> throw new IllegalArgumentException("Spec version v1 doesn't have attribute named " + attributeName);
+        };
     }
 
     @Override
@@ -197,7 +199,7 @@ public final class CloudEventV1 extends BaseCloudEvent {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CloudEventV1 that = (CloudEventV1) o;

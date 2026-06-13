@@ -30,8 +30,7 @@ import io.cloudevents.rw.CloudEventWriter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.Headers;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This class provides a collection of methods to create {@link io.cloudevents.core.message.MessageReader}
@@ -40,7 +39,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * These can be used as an alternative to {@link CloudEventDeserializer} and {@link CloudEventSerializer} to
  * manually serialize/deserialize {@link io.cloudevents.CloudEvent} messages.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public final class KafkaMessageFactory {
 
     private KafkaMessageFactory() {

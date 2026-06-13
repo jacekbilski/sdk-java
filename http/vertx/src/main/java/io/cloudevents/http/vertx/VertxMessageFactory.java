@@ -8,7 +8,6 @@ import io.cloudevents.http.vertx.impl.BinaryVertxMessageReaderImpl;
 import io.cloudevents.http.vertx.impl.CloudEventsHeaders;
 import io.cloudevents.http.vertx.impl.VertxHttpServerResponseMessageWriterImpl;
 import io.cloudevents.http.vertx.impl.VertxWebClientRequestMessageWriterImpl;
-import io.cloudevents.lang.Nullable;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 import io.vertx.core.AsyncResult;
@@ -21,14 +20,14 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.HttpResponse;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class provides a collection of methods to create {@link io.cloudevents.core.message.MessageReader}
  * and {@link io.cloudevents.core.message.MessageWriter} for Vert.x {@link io.vertx.core.http.HttpServer} and {@link io.vertx.ext.web.client.WebClient}.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public final class VertxMessageFactory {
 
     private VertxMessageFactory() {

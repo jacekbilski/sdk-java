@@ -17,15 +17,15 @@
 
 package io.cloudevents;
 
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
 
 /**
  * Materialized CloudEvent extension interface to read/write the extension attributes key/values.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventExtension {
 
     /**

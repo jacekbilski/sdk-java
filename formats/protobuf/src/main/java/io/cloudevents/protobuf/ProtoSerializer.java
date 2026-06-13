@@ -30,6 +30,7 @@ import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.v1.proto.CloudEvent;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.time.Instant;
@@ -145,7 +146,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, String value)
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value)
             throws CloudEventRWException {
             if (!setRequiredField(name, value)) {
                 this.protoBuilder.putAttributes(name,
@@ -155,7 +156,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, URI value)
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull URI value)
             throws CloudEventRWException {
             if (!setRequiredField(name, value.toString())) {
                 // This is a bit of a hack. The java SDK doesn't differentiate between absolute and reference for its URIs, unlike the protobuf representation.
@@ -171,7 +172,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, OffsetDateTime value)
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull OffsetDateTime value)
             throws CloudEventRWException {
             Instant instant = value.toInstant();
             Timestamp ts = Timestamp.newBuilder()
@@ -185,7 +186,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Number value)
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value)
             throws CloudEventRWException {
 
             // TODO - Future Cleanup
@@ -198,7 +199,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Boolean value)
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value)
             throws CloudEventRWException {
             if (!setRequiredField(name, value)) {
                 this.protoBuilder.putAttributes(name, CloudEventAttributeValue.newBuilder().setCeBoolean(value).build());
@@ -207,7 +208,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, byte[] value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, byte @NonNull [] value) throws CloudEventRWException {
 
             if (!setRequiredField(name, value)) {
 
@@ -220,7 +221,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Integer value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Integer value) throws CloudEventRWException {
 
             if (!setRequiredField(name, value)){
 
@@ -234,7 +235,7 @@ class ProtoSerializer {
         }
 
         @Override
-        public CloudEvent end(CloudEventData data) throws CloudEventRWException {
+        public CloudEvent end(@NonNull CloudEventData data) throws CloudEventRWException {
             if (data != null) {
                 // Grab the contentType field out of the builder, if present
                 String dataContentType = null;

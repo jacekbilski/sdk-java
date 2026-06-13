@@ -20,6 +20,7 @@ package io.cloudevents.core.v03;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.types.Time;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,7 +37,7 @@ class V1ToV03AttributesConverter implements CloudEventContextWriter {
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         switch (name) {
             case ID:
                 builder.withId(value);
@@ -74,7 +75,7 @@ class V1ToV03AttributesConverter implements CloudEventContextWriter {
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, URI value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull URI value) throws CloudEventRWException {
         switch (name) {
             case SOURCE:
                 builder.withSource(value);
@@ -95,7 +96,7 @@ class V1ToV03AttributesConverter implements CloudEventContextWriter {
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, OffsetDateTime value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull OffsetDateTime value) throws CloudEventRWException {
         switch (name) {
             case TIME:
                 builder.withTime(value);
@@ -114,7 +115,7 @@ class V1ToV03AttributesConverter implements CloudEventContextWriter {
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException {
         switch (name) {
             case TIME:
             case SOURCE:
@@ -131,7 +132,7 @@ class V1ToV03AttributesConverter implements CloudEventContextWriter {
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
         switch (name) {
             case TIME:
             case SOURCE:

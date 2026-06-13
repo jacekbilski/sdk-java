@@ -18,8 +18,8 @@
 package io.cloudevents.rw;
 
 import io.cloudevents.types.Time;
+import org.jspecify.annotations.NullMarked;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Base64;
@@ -27,7 +27,7 @@ import java.util.Base64;
 /**
  * Interface to write the context attributes/extensions from a {@link io.cloudevents.rw.CloudEventContextReader} to a new representation.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventContextWriter {
 
     /**

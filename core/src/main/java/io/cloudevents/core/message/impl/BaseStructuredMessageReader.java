@@ -23,6 +23,7 @@ import io.cloudevents.core.message.MessageReader;
 import io.cloudevents.rw.CloudEventDataMapper;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.rw.CloudEventWriterFactory;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base {@link MessageReader} implementation for a structured message
@@ -35,7 +36,7 @@ public abstract class BaseStructuredMessageReader implements MessageReader {
     }
 
     @Override
-    public <V extends CloudEventWriter<R>, R> R read(CloudEventWriterFactory<V, R> writerFactory, CloudEventDataMapper<? extends CloudEventData> mapper) {
+    public <V extends CloudEventWriter<R>, R> R read(@NonNull CloudEventWriterFactory<V, R> writerFactory, @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) {
         throw MessageUtils.generateWrongEncoding(Encoding.BINARY, Encoding.STRUCTURED);
     }
 }

@@ -19,15 +19,14 @@ package io.cloudevents.core.message;
 
 import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.rw.CloudEventRWException;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Interface to write the {@link MessageReader} content (CloudEvents attributes, extensions and payload) to a new representation structured representation.
  *
  * @param <R> return value at the end of the write process.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 @FunctionalInterface
 public interface StructuredMessageWriter<R> {
 

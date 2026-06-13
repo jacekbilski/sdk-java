@@ -21,6 +21,7 @@ import io.cloudevents.core.v1.CloudEventV1;
 
 import org.apache.kafka.common.header.Header;
 import org.apache.kafka.common.header.Headers;
+import org.jspecify.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class KafkaHeaders {
 
     public static final String SPEC_VERSION = ATTRIBUTES_TO_HEADERS.get(CloudEventV1.SPECVERSION);
 
-    public static String getParsedKafkaHeader(Headers headers, String key) {
+    public static @Nullable String getParsedKafkaHeader(Headers headers, String key) {
         Header h = headers.lastHeader(key);
         if (h == null) {
             return null;

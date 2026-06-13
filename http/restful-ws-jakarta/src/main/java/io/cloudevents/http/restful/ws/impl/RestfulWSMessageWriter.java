@@ -26,6 +26,9 @@ import io.cloudevents.rw.CloudEventWriter;
 
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MultivaluedMap;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -43,13 +46,13 @@ public final class RestfulWSMessageWriter implements CloudEventWriter<Void>, Mes
     }
 
     @Override
-    public RestfulWSMessageWriter create(SpecVersion version) {
+    public RestfulWSMessageWriter create(@NonNull SpecVersion version) {
         this.httpHeaders.add(CloudEventsHeaders.SPEC_VERSION, version.toString());
         return this;
     }
 
     @Override
-    public RestfulWSMessageWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public RestfulWSMessageWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         String headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = CloudEventsHeaders.CE_PREFIX + name;
@@ -59,7 +62,7 @@ public final class RestfulWSMessageWriter implements CloudEventWriter<Void>, Mes
     }
 
     @Override
-    public Void end(CloudEventData value) throws CloudEventRWException {
+    public @Nullable Void end(@NonNull CloudEventData value) throws CloudEventRWException {
         try {
             this.entityStream.write(value.toBytes());
         } catch (IOException e) {
@@ -69,7 +72,7 @@ public final class RestfulWSMessageWriter implements CloudEventWriter<Void>, Mes
     }
 
     @Override
-    public Void end() {
+    public @Nullable Void end() {
         try {
             this.entityStream.flush();
         } catch (IOException e) {
@@ -79,7 +82,7 @@ public final class RestfulWSMessageWriter implements CloudEventWriter<Void>, Mes
     }
 
     @Override
-    public Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
+    public @Nullable Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
         this.httpHeaders.add(HttpHeaders.CONTENT_TYPE, format.serializedContentType());
         try {
             this.entityStream.write(value);

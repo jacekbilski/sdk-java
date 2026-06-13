@@ -29,6 +29,8 @@ import org.apache.qpid.proton.amqp.Binary;
 import org.apache.qpid.proton.amqp.messaging.ApplicationProperties;
 import org.apache.qpid.proton.amqp.messaging.Data;
 import org.apache.qpid.proton.message.Message;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 
@@ -38,10 +40,12 @@ import java.util.HashMap;
  * <p>
  * This writer returns an AMQP message at the end of the write process.
  */
+@NullMarked
 public final class ProtonAmqpMessageWriter<R> implements MessageWriter<CloudEventWriter<Message>, Message>, CloudEventWriter<Message> {
 
+    @Nullable
     private ApplicationProperties applicationProperties;
-    private Message message;
+    private final Message message;
 
     /**
      * Creates a proton-base message writer.

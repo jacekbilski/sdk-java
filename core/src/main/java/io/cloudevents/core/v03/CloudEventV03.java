@@ -19,9 +19,10 @@ package io.cloudevents.core.v03;
 import io.cloudevents.CloudEventData;
 import io.cloudevents.SpecVersion;
 import io.cloudevents.core.impl.BaseCloudEvent;
-import io.cloudevents.lang.Nullable;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -34,6 +35,7 @@ import java.util.Objects;
  * @author fabiojose
  * @author slinkydeveloper
  */
+@NullMarked
 public final class CloudEventV03 extends BaseCloudEvent {
 
     /**
@@ -84,15 +86,22 @@ public final class CloudEventV03 extends BaseCloudEvent {
     private final String id;
     private final URI source;
     private final String type;
-    private final String datacontenttype;
-    private final URI schemaurl;
-    private final String subject;
-    private final OffsetDateTime time;
+    @Nullable private final String datacontenttype;
+    @Nullable private final URI schemaurl;
+    @Nullable private final String subject;
+    @Nullable private final OffsetDateTime time;
 
-    public CloudEventV03(String id, URI source, String type,
-                         OffsetDateTime time, URI schemaurl,
-                         String datacontenttype, String subject,
-                         CloudEventData data, Map<String, Object> extensions) {
+    public CloudEventV03(
+        String id,
+        URI source,
+        String type,
+        @Nullable OffsetDateTime time,
+        @Nullable URI schemaurl,
+        @Nullable String datacontenttype,
+        @Nullable String subject,
+        @Nullable CloudEventData data,
+        @Nullable Map<String, Object> extensions
+    ) {
         super(data, extensions);
 
         this.id = id;
@@ -121,51 +130,42 @@ public final class CloudEventV03 extends BaseCloudEvent {
         return type;
     }
 
-    public String getDataContentType() {
+    public @Nullable String getDataContentType() {
         return datacontenttype;
     }
 
-    public URI getDataSchema() {
+    public @Nullable URI getDataSchema() {
         return schemaurl;
     }
 
-    @Nullable
-    public URI getSchemaUrl() {
+    public @Nullable URI getSchemaUrl() {
         return schemaurl;
     }
 
-    public String getSubject() {
+    public @Nullable String getSubject() {
         return subject;
     }
 
-    public OffsetDateTime getTime() {
+    public @Nullable OffsetDateTime getTime() {
         return time;
     }
 
     @Override
-    public Object getAttribute(String attributeName) {
-        switch (attributeName) {
-            case SPECVERSION:
-                return getSpecVersion();
-            case ID:
-                return this.id;
-            case SOURCE:
-                return this.source;
-            case TYPE:
-                return this.type;
-            case DATACONTENTTYPE:
-                return this.datacontenttype;
-            case SCHEMAURL:
-                return this.schemaurl;
-            case SUBJECT:
-                return this.subject;
-            case TIME:
-                return this.time;
-            case DATACONTENTENCODING:
-                // We don't save datacontentencoding, but the attribute name is valid, hence we just return always null
-                return null;
-        }
-        throw new IllegalArgumentException("Spec version v0.3 doesn't have attribute named " + attributeName);
+    public @Nullable Object getAttribute(String attributeName) {
+        return switch (attributeName) {
+            case SPECVERSION -> getSpecVersion();
+            case ID -> this.id;
+            case SOURCE -> this.source;
+            case TYPE -> this.type;
+            case DATACONTENTTYPE -> this.datacontenttype;
+            case SCHEMAURL -> this.schemaurl;
+            case SUBJECT -> this.subject;
+            case TIME -> this.time;
+            case DATACONTENTENCODING ->
+                // We don't save datacontentencoding, but the attribute name is valid, hence we just always return null
+                null;
+            default -> throw new IllegalArgumentException("Spec version v0.3 doesn't have attribute named " + attributeName);
+        };
     }
 
     @Override
@@ -210,7 +210,7 @@ public final class CloudEventV03 extends BaseCloudEvent {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CloudEventV03 that = (CloudEventV03) o;

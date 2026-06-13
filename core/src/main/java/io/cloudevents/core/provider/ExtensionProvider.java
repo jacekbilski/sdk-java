@@ -17,13 +17,13 @@
 
 package io.cloudevents.core.provider;
 
-import io.cloudevents.CloudEventExtensions;
 import io.cloudevents.CloudEventExtension;
+import io.cloudevents.CloudEventExtensions;
 import io.cloudevents.core.extensions.DatarefExtension;
 import io.cloudevents.core.extensions.DistributedTracingExtension;
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -32,7 +32,7 @@ import java.util.function.Supplier;
  * <p>
  * You can materialize an {@link CloudEventExtension} POJO with {@code ExtensionProvider.getInstance().parseExtension(DistributedTracingExtension.class, event)}.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public final class ExtensionProvider {
 
     private static class SingletonContainer {
@@ -75,8 +75,7 @@ public final class ExtensionProvider {
      * @return the parsed extension
      */
     @SuppressWarnings("unchecked")
-    @Nullable
-    public <T extends CloudEventExtension> T parseExtension(Class<T> extensionClass, CloudEventExtensions eventExtensions) {
+    public <T extends CloudEventExtension> @Nullable T parseExtension(Class<T> extensionClass, CloudEventExtensions eventExtensions) {
         Supplier<?> factory = extensionFactories.get(extensionClass);
         if (factory != null) {
             CloudEventExtension ext = (CloudEventExtension) factory.get();

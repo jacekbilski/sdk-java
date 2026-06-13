@@ -20,8 +20,8 @@ package io.cloudevents.core.format;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.CloudEventData;
 import io.cloudevents.rw.CloudEventDataMapper;
+import org.jspecify.annotations.NullMarked;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
 import java.util.Set;
 
@@ -35,7 +35,7 @@ import java.util.Set;
  *
  * @see io.cloudevents.core.provider.EventFormatProvider
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface EventFormat {
 
     /**

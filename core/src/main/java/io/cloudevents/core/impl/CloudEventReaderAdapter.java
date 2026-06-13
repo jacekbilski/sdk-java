@@ -20,7 +20,9 @@ package io.cloudevents.core.impl;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.CloudEventData;
 import io.cloudevents.rw.*;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class CloudEventReaderAdapter extends CloudEventContextReaderAdapter implements CloudEventReader {
 
     private final CloudEvent event;
@@ -31,8 +33,10 @@ public class CloudEventReaderAdapter extends CloudEventContextReaderAdapter impl
     }
 
     @Override
-    public <V extends CloudEventWriter<R>, R> R read(CloudEventWriterFactory<V, R> writerFactory,
-            CloudEventDataMapper<? extends CloudEventData> mapper) throws RuntimeException {
+    public <V extends CloudEventWriter<R>, R> R read(
+        CloudEventWriterFactory<V, R> writerFactory,
+        CloudEventDataMapper<? extends CloudEventData> mapper
+    ) throws RuntimeException {
         CloudEventWriter<R> visitor = writerFactory.create(event.getSpecVersion());
         this.readAttributes(visitor);
         this.readExtensions(visitor);
@@ -43,5 +47,4 @@ public class CloudEventReaderAdapter extends CloudEventContextReaderAdapter impl
 
         return visitor.end();
     }
-
 }

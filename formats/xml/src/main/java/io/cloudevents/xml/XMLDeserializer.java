@@ -21,6 +21,7 @@ import io.cloudevents.SpecVersion;
 import io.cloudevents.core.data.BytesCloudEventData;
 import io.cloudevents.rw.*;
 import io.cloudevents.types.Time;
+import org.jspecify.annotations.NonNull;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,8 +42,8 @@ class XMLDeserializer implements CloudEventReader {
 
     @Override
     public <W extends CloudEventWriter<R>, R> R read(
-        CloudEventWriterFactory<W, R> writerFactory,
-        CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException {
+        @NonNull CloudEventWriterFactory<W, R> writerFactory,
+        @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException {
 
         // Grab the Root and ensure it's what we expect.
         final Element root = xmlDocument.getDocumentElement();

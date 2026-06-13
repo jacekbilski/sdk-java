@@ -22,11 +22,11 @@ import io.cloudevents.SpecVersion;
 import io.cloudevents.core.CloudEventUtils;
 import io.cloudevents.core.impl.BaseCloudEventBuilder;
 import io.cloudevents.core.provider.CloudEventValidatorProvider;
-import io.cloudevents.core.validator.CloudEventValidator;
 import io.cloudevents.rw.CloudEventContextReader;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.types.Time;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -150,7 +150,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     // Message impl
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {
             case ID:
@@ -189,7 +189,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, URI value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull URI value) throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {
             case SOURCE:
@@ -211,7 +211,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, OffsetDateTime value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull OffsetDateTime value) throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {
             case TIME:
@@ -231,7 +231,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {
             case TIME:
@@ -249,7 +249,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Integer value) throws CloudEventRWException
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Integer value) throws CloudEventRWException
     {
         requireValidAttributeWrite(name);
         switch (name) {
@@ -268,7 +268,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {
             case TIME:
@@ -286,7 +286,7 @@ public final class CloudEventBuilder extends BaseCloudEventBuilder<CloudEventBui
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, byte[] value)
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, byte @NonNull [] value)
         throws CloudEventRWException {
         requireValidAttributeWrite(name);
         switch (name) {

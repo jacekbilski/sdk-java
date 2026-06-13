@@ -24,6 +24,7 @@ import org.apache.qpid.proton.amqp.messaging.AmqpValue;
 import org.apache.qpid.proton.amqp.messaging.ApplicationProperties;
 import org.apache.qpid.proton.amqp.messaging.Data;
 import org.apache.qpid.proton.amqp.messaging.Section;
+import org.jspecify.annotations.Nullable;
 
 import io.cloudevents.core.message.impl.MessageUtils;
 
@@ -73,7 +74,7 @@ public final class AmqpConstants {
      *         name.
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getApplicationProperty(final ApplicationProperties props, final String name,
+    public static <T> @Nullable T getApplicationProperty(final ApplicationProperties props, final String name,
             final Class<T> type) {
 
         if (props == null) {
@@ -101,11 +102,11 @@ public final class AmqpConstants {
      * the UTF-8 encoding of the String is returned.</li>
      * <li>In all other cases, {@code null} is returned.</li>
      * </ul>
-
+     
      * @param payload  The message payload to extract the bytes from.
      * @return         The payload bytes or {@code null} if the above stated conditions are not met.
      */
-    public static byte[] getPayloadAsByteArray(final Section payload) {
+    public static byte @Nullable[] getPayloadAsByteArray(final Section payload) {
         if (payload == null) {
             return null;
         }

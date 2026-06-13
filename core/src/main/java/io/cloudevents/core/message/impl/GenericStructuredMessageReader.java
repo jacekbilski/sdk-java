@@ -21,8 +21,8 @@ import io.cloudevents.CloudEvent;
 import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.core.message.StructuredMessageWriter;
 import io.cloudevents.core.provider.EventFormatProvider;
-import io.cloudevents.lang.Nullable;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Generic implementation of a structured message.
@@ -49,7 +49,7 @@ public class GenericStructuredMessageReader extends BaseStructuredMessageReader 
      * @param payload     serialized event
      * @return null if format was not found, otherwise returns the built message
      */
-    public static GenericStructuredMessageReader fromContentType(String contentType, byte[] payload) {
+    public static @Nullable GenericStructuredMessageReader fromContentType(String contentType, byte[] payload) {
         EventFormat format = EventFormatProvider.getInstance().resolveFormat(contentType);
         if (format == null) {
             return null;
@@ -65,8 +65,7 @@ public class GenericStructuredMessageReader extends BaseStructuredMessageReader 
      * @param contentType content type to use to resolve the {@link EventFormat}
      * @return null if format was not found, otherwise returns the built message
      */
-    @Nullable
-    public static GenericStructuredMessageReader from(CloudEvent event, String contentType) {
+    public static @Nullable GenericStructuredMessageReader from(CloudEvent event, String contentType) {
         EventFormat format = EventFormatProvider.getInstance().resolveFormat(contentType);
         if (format == null) {
             return null;
