@@ -23,11 +23,11 @@ import io.cloudevents.CloudEventData;
 import io.cloudevents.core.builder.CloudEventBuilder;
 import io.cloudevents.core.impl.CloudEventContextReaderAdapter;
 import io.cloudevents.core.impl.CloudEventReaderAdapter;
-import io.cloudevents.lang.Nullable;
 import io.cloudevents.rw.CloudEventContextReader;
 import io.cloudevents.rw.CloudEventDataMapper;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventReader;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class contains a set of utility methods to deal with conversions of {@link io.cloudevents} related interfaces
@@ -99,8 +99,7 @@ public final class CloudEventUtils {
      * @param <R>    the returned {@link CloudEventData} implementation from the provided mapper
      * @return the data contained in {@code event} and mapped with {@code mapper}, if any, otherwise null
      */
-    @Nullable
-    public static <R extends CloudEventData> R mapData(CloudEvent event, CloudEventDataMapper<R> mapper) {
+    public static <R extends CloudEventData> @Nullable R mapData(CloudEvent event, CloudEventDataMapper<R> mapper) {
         CloudEventData data = event.getData();
         if (data == null) {
             return null;

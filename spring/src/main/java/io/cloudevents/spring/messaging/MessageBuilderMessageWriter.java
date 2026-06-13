@@ -26,6 +26,7 @@ import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -55,7 +56,7 @@ class MessageBuilderMessageWriter
 	}
 
 	@Override
-	public Message<byte[]> end(CloudEventData value) throws CloudEventRWException {
+	public Message<byte[]> end(@NonNull CloudEventData value) throws CloudEventRWException {
 		return MessageBuilder.withPayload(value == null ? new byte[0] : value.toBytes()).copyHeaders(headers).build();
 	}
 
@@ -65,13 +66,13 @@ class MessageBuilderMessageWriter
 	}
 
 	@Override
-	public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+	public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
 		headers.put(CloudEventsHeaders.CE_PREFIX + name, value);
 		return this;
 	}
 
 	@Override
-	public MessageBuilderMessageWriter create(SpecVersion version) {
+	public MessageBuilderMessageWriter create(@NonNull SpecVersion version) {
 		headers.put(CloudEventsHeaders.SPEC_VERSION, version.toString());
 		return this;
 	}

@@ -17,9 +17,9 @@
 
 package io.cloudevents;
 
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * <p>
  * For more info: <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#context-attributes">Context attributes</a>
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventAttributes {
 
     /**

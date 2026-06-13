@@ -17,7 +17,7 @@
 
 package io.cloudevents.rw;
 
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class is the exception Protocol Binding and Event Format implementers can use to signal errors while serializing/deserializing CloudEvent.

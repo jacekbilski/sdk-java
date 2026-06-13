@@ -23,6 +23,8 @@ import io.cloudevents.core.message.MessageWriter;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -40,26 +42,26 @@ public class HttpMessageWriter implements CloudEventWriter<Void>, MessageWriter<
     }
 
     @Override
-    public Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
+    public @Nullable Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
         putHeader.accept(CONTENT_TYPE, format.serializedContentType());
         putBody.accept(value);
         return null;
     }
 
     @Override
-    public Void end(CloudEventData value) throws CloudEventRWException {
+    public @Nullable Void end(@NonNull CloudEventData value) throws CloudEventRWException {
         putBody.accept(value.toBytes());
         return null;
     }
 
     @Override
-    public Void end() {
+    public @Nullable Void end() {
         putBody.accept(null);
         return null;
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         String headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = "ce-" + name;
@@ -69,7 +71,7 @@ public class HttpMessageWriter implements CloudEventWriter<Void>, MessageWriter<
     }
 
     @Override
-    public HttpMessageWriter create(SpecVersion version) {
+    public HttpMessageWriter create(@NonNull SpecVersion version) {
         putHeader.accept(CloudEventsHeaders.SPEC_VERSION, version.toString());
         return this;
     }

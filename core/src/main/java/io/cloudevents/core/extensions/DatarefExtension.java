@@ -20,6 +20,7 @@ package io.cloudevents.core.extensions;
 import io.cloudevents.CloudEventExtensions;
 import io.cloudevents.CloudEventExtension;
 import io.cloudevents.core.extensions.impl.ExtensionUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.util.Collections;
@@ -65,7 +66,7 @@ public final class DatarefExtension implements CloudEventExtension {
     }
 
     @Override
-    public Object getValue(String key) {
+    public Object getValue(@NonNull String key) {
         if (DATAREF.equals(key)) {
             return this.dataref.toString();
         }

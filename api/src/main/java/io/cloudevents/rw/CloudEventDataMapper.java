@@ -18,8 +18,7 @@
 package io.cloudevents.rw;
 
 import io.cloudevents.CloudEventData;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Interface to convert a {@link CloudEventData} instance to another one.
@@ -27,7 +26,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * @param <R> the returned {@link CloudEventData} from this mapper.
  */
 @FunctionalInterface
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventDataMapper<R extends CloudEventData> {
 
     /**

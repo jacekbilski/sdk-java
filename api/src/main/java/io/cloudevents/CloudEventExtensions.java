@@ -17,9 +17,9 @@
 
 package io.cloudevents;
 
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
 
 /**
@@ -27,7 +27,7 @@ import java.util.Set;
  * <p>
  * Extensions values could be String/Number/Boolean
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventExtensions {
 
     /**

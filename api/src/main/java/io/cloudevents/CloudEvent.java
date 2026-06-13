@@ -16,7 +16,7 @@
  */
 package io.cloudevents;
 
-import io.cloudevents.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface representing an in-memory read-only representation of a CloudEvent,

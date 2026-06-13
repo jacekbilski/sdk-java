@@ -19,16 +19,16 @@ package io.cloudevents.core.builder;
 
 import io.cloudevents.*;
 import io.cloudevents.rw.CloudEventWriter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullUnmarked;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNullableByDefault;
 import java.net.URI;
 import java.time.OffsetDateTime;
 
 /**
  * Builder interface to build a {@link CloudEvent}.
  */
-@ParametersAreNullableByDefault
+@NullUnmarked
 public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
 
     /**
@@ -170,7 +170,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull String value);
+    CloudEventBuilder withExtension(@NonNull String key, @NonNull String value);
 
     /**
      * Set an extension with provided key and numeric value
@@ -179,7 +179,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull Number value);
+    CloudEventBuilder withExtension(@NonNull String key, @NonNull Number value);
 
     /**
      * Set an extension with provided key and boolean value
@@ -188,7 +188,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull Boolean value);
+    CloudEventBuilder withExtension(@NonNull String key, @NonNull Boolean value);
 
     /**
      * Set an extension with provided key and uri value
@@ -197,7 +197,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull URI value);
+    CloudEventBuilder withExtension(@NonNull String key, @NonNull URI value);
 
     /**
      * Set an extension with provided key and boolean value
@@ -206,7 +206,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull OffsetDateTime value);
+    CloudEventBuilder withExtension(@NonNull String key, @NonNull OffsetDateTime value);
 
     /**
      * Set an extension with provided key and binary value
@@ -215,7 +215,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param value value of the extension attribute
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull String key, @Nonnull byte[] value);
+    CloudEventBuilder withExtension(@NonNull String key, byte @NonNull[] value);
 
     /**
      * Add to the builder all the extension key/values of the provided extension
@@ -223,7 +223,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param extension materialized extension to set in the builder
      * @return self
      */
-    CloudEventBuilder withExtension(@Nonnull CloudEventExtension extension);
+    CloudEventBuilder withExtension(@NonNull CloudEventExtension extension);
 
     /**
      * Remove from the the builder the provided extension key, if any
@@ -231,7 +231,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param key key of the extension attribute
      * @return self
      */
-    CloudEventBuilder withoutExtension(@Nonnull String key);
+    CloudEventBuilder withoutExtension(@NonNull String key);
 
     /**
      * Remove from the the builder the provided extension, if any
@@ -239,7 +239,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param extension materialized extension to remove from the builder
      * @return self
      */
-    CloudEventBuilder withoutExtension(@Nonnull CloudEventExtension extension);
+    CloudEventBuilder withoutExtension(@NonNull CloudEventExtension extension);
 
     /**
      * Build the event
@@ -267,7 +267,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param event event to bootstrap the builder
      * @return a new CloudEvent v1 builder filled with content of {@code event}
      */
-    static io.cloudevents.core.v1.CloudEventBuilder v1(@Nonnull CloudEvent event) {
+    static io.cloudevents.core.v1.CloudEventBuilder v1(@NonNull CloudEvent event) {
         return new io.cloudevents.core.v1.CloudEventBuilder(event);
     }
 
@@ -282,7 +282,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param event event to bootstrap the builder
      * @return a new CloudEvent v0.3 builder filled with content of {@code event}
      */
-    static io.cloudevents.core.v03.CloudEventBuilder v03(@Nonnull CloudEvent event) {
+    static io.cloudevents.core.v03.CloudEventBuilder v03(@NonNull CloudEvent event) {
         return new io.cloudevents.core.v03.CloudEventBuilder(event);
     }
 
@@ -292,7 +292,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param version version to use for the new builder
      * @return a new builder
      */
-    static CloudEventBuilder fromSpecVersion(@Nonnull SpecVersion version) {
+    static CloudEventBuilder fromSpecVersion(@NonNull SpecVersion version) {
         switch (version) {
             case V1:
                 return CloudEventBuilder.v1();
@@ -310,7 +310,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param event event to copy values from
      * @return the new builder
      */
-    static CloudEventBuilder from(@Nonnull CloudEvent event) {
+    static CloudEventBuilder from(@NonNull CloudEvent event) {
         switch (event.getSpecVersion()) {
             case V1:
                 return CloudEventBuilder.v1(event);
@@ -328,7 +328,7 @@ public interface CloudEventBuilder extends CloudEventWriter<CloudEvent> {
      * @param context context to copy values from
      * @return the new builder
      */
-    static CloudEventBuilder fromContext(@Nonnull CloudEventContext context) {
+    static CloudEventBuilder fromContext(@NonNull CloudEventContext context) {
         switch (context.getSpecVersion()) {
             case V1:
                 return new io.cloudevents.core.v1.CloudEventBuilder(context);

@@ -14,6 +14,8 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
+import org.jspecify.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,11 +32,11 @@ public class UserResource {
     @Context
     UriInfo uriInfo;
 
-    private Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     @GET
     @Path("/{username}")
-    public User get(@PathParam("username") String username) {
+    public @Nullable User get(@PathParam("username") String username) {
         if (users.containsKey(username)) {
             return users.get(username);
         }

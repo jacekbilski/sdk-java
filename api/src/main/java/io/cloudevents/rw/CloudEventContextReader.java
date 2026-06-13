@@ -17,14 +17,14 @@
 
 package io.cloudevents.rw;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Represents an object that can be read as CloudEvent context attributes and extensions.
  * <p>
  * An object (in particular, buffered objects) can implement both this interface and {@link CloudEventReader}.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventContextReader {
 
     /**

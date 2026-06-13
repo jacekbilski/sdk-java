@@ -27,6 +27,8 @@ import io.cloudevents.rw.CloudEventWriter;
 import jakarta.ws.rs.client.ClientRequestContext;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public final class RestfulWSClientMessageWriter implements CloudEventWriter<Void>, MessageWriter<RestfulWSClientMessageWriter, Void> {
 
@@ -41,13 +43,13 @@ public final class RestfulWSClientMessageWriter implements CloudEventWriter<Void
     }
 
     @Override
-    public RestfulWSClientMessageWriter create(SpecVersion version) {
+    public RestfulWSClientMessageWriter create(@NonNull SpecVersion version) {
         this.context.getHeaders().add(CloudEventsHeaders.SPEC_VERSION, version.toString());
         return this;
     }
 
     @Override
-    public RestfulWSClientMessageWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public RestfulWSClientMessageWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         String headerName = CloudEventsHeaders.ATTRIBUTES_TO_HEADERS.get(name);
         if (headerName == null) {
             headerName = CloudEventsHeaders.CE_PREFIX + name;
@@ -57,18 +59,18 @@ public final class RestfulWSClientMessageWriter implements CloudEventWriter<Void
     }
 
     @Override
-    public Void end(CloudEventData value) throws CloudEventRWException {
+    public @Nullable Void end(@NonNull CloudEventData value) throws CloudEventRWException {
         this.context.setEntity(value.toBytes());
         return null;
     }
 
     @Override
-    public Void end() {
+    public @Nullable Void end() {
         return null;
     }
 
     @Override
-    public Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
+    public @Nullable Void setEvent(EventFormat format, byte[] value) throws CloudEventRWException {
         this.context.setEntity(value, null, MediaType.valueOf(format.serializedContentType()));
         return null;
     }

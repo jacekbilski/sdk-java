@@ -18,15 +18,14 @@
 package io.cloudevents.rw;
 
 import io.cloudevents.CloudEventData;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Represents an object that can be read as CloudEvent.
  * <p>
  * The read may consume this object, hence it's not safe to invoke it multiple times, unless it's explicitly allowed by the implementer.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface CloudEventReader {
 
     /**

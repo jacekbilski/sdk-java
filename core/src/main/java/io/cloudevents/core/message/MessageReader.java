@@ -22,15 +22,14 @@ import io.cloudevents.CloudEventData;
 import io.cloudevents.SpecVersion;
 import io.cloudevents.core.CloudEventUtils;
 import io.cloudevents.rw.*;
-
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Represents a <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#message">CloudEvent message</a> reader.
  * <p>
  * This class expands the {@link CloudEventReader} to define reading both binary and structured messages.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public interface MessageReader extends StructuredMessageReader, CloudEventReader {
 
     /**

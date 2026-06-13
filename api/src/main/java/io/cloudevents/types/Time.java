@@ -18,6 +18,7 @@
 package io.cloudevents.types;
 
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NullMarked;
 
 import java.time.DateTimeException;
 import java.time.OffsetDateTime;
@@ -28,6 +29,7 @@ import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 /**
  * Utilities to handle the <a href="https://github.com/cloudevents/spec/blob/v1.0/spec.md#type-system">CloudEvent Attribute Timestamp type</a>
  */
+@NullMarked
 public final class Time {
 
     private Time() {

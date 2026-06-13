@@ -18,6 +18,7 @@
 package io.cloudevents.rw;
 
 import io.cloudevents.SpecVersion;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This factory is used to enforce setting the {@link SpecVersion} as the first step in the writing process.
@@ -25,6 +26,7 @@ import io.cloudevents.SpecVersion;
  * @param <W> The type of the {@link CloudEventWriter} created by this factory
  * @param <R> The return value of the {@link CloudEventWriter} created by this factory
  */
+@NullMarked
 @FunctionalInterface
 public interface CloudEventWriterFactory<W extends CloudEventWriter<R>, R> {
 

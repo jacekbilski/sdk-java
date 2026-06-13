@@ -17,13 +17,7 @@
 
 package io.cloudevents.core.format;
 
-import io.cloudevents.CloudEvent;
-import io.cloudevents.CloudEventData;
-import io.cloudevents.rw.CloudEventDataMapper;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.Set;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * <p>A construct that aggregates a two-part identifier of file formats and format contents transmitted on the Internet.
@@ -34,7 +28,7 @@ import java.util.Set;
  *
  * @see io.cloudevents.core.format.EventFormat
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public enum ContentType {
 
     /**

@@ -25,6 +25,7 @@ import io.cloudevents.core.data.BytesCloudEventData;
 import io.cloudevents.core.message.MessageReader;
 import io.cloudevents.core.message.impl.BaseBinaryMessageReader;
 import io.cloudevents.rw.*;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -34,7 +35,7 @@ import java.util.Map;
 public class MockBinaryMessageWriter extends BaseBinaryMessageReader implements MessageReader, CloudEventContextReader, CloudEventWriterFactory<MockBinaryMessageWriter, MockBinaryMessageWriter>, CloudEventWriter<MockBinaryMessageWriter> {
 
     private SpecVersion version;
-    private Map<String, Object> context;
+    private final Map<String, Object> context;
     private CloudEventData data;
 
     public MockBinaryMessageWriter(SpecVersion version, Map<String, Object> context, CloudEventData data) {
@@ -59,7 +60,7 @@ public class MockBinaryMessageWriter extends BaseBinaryMessageReader implements 
     }
 
     @Override
-    public <T extends CloudEventWriter<V>, V> V read(CloudEventWriterFactory<T, V> writerFactory, CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
+    public <T extends CloudEventWriter<V>, V> V read(@NonNull CloudEventWriterFactory<T, V> writerFactory, @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
         if (version == null) {
             throw new IllegalStateException("MockBinaryMessage is empty");
         }
@@ -75,7 +76,7 @@ public class MockBinaryMessageWriter extends BaseBinaryMessageReader implements 
     }
 
     @Override
-    public MockBinaryMessageWriter end(CloudEventData value) throws CloudEventRWException {
+    public MockBinaryMessageWriter end(@NonNull CloudEventData value) throws CloudEventRWException {
         this.data = value;
         return this;
     }
@@ -86,14 +87,14 @@ public class MockBinaryMessageWriter extends BaseBinaryMessageReader implements 
     }
 
     @Override
-    public MockBinaryMessageWriter create(SpecVersion version) {
+    public MockBinaryMessageWriter create(@NonNull SpecVersion version) {
         this.version = version;
 
         return this;
     }
 
     @Override
-    public void readContext(CloudEventContextWriter writer) throws CloudEventRWException {
+    public void readContext(@NonNull CloudEventContextWriter writer) throws CloudEventRWException {
         for (Map.Entry<String, Object> entry : this.context.entrySet()) {
             if (entry.getValue() instanceof String) {
                 writer.withContextAttribute(entry.getKey(), (String) entry.getValue());
@@ -113,31 +114,31 @@ public class MockBinaryMessageWriter extends BaseBinaryMessageReader implements 
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         this.context.put(name, value);
         return this;
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, URI value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull URI value) throws CloudEventRWException {
         this.context.put(name, value);
         return this;
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, OffsetDateTime value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull OffsetDateTime value) throws CloudEventRWException {
         this.context.put(name, value);
         return this;
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException {
         this.context.put(name, value);
         return this;
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
         this.context.put(name, value);
         return this;
     }

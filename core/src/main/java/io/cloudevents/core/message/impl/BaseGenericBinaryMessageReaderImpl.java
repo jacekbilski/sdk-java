@@ -24,6 +24,7 @@ import io.cloudevents.rw.CloudEventDataMapper;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.rw.CloudEventWriterFactory;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -49,7 +50,7 @@ public abstract class BaseGenericBinaryMessageReaderImpl<HK, HV> extends BaseBin
     }
 
     @Override
-    public <T extends CloudEventWriter<V>, V> V read(CloudEventWriterFactory<T, V> writerFactory, CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
+    public <T extends CloudEventWriter<V>, V> V read(@NonNull CloudEventWriterFactory<T, V> writerFactory, @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
         CloudEventWriter<V> visitor = writerFactory.create(this.version);
 
         // Grab from headers the attributes and extensions

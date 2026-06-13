@@ -30,6 +30,7 @@ import java.util.Map;
 import org.apache.rocketmq.client.apis.ClientServiceProvider;
 import org.apache.rocketmq.client.apis.message.Message;
 import org.apache.rocketmq.client.apis.message.MessageBuilder;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The RocketmqMessageWriter class is a CloudEvents message writer for RocketMQ.
@@ -55,7 +56,7 @@ final class RocketmqMessageWriter implements MessageWriter<CloudEventWriter<Mess
     }
 
     @Override
-    public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+    public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
         if (name.equals(CloudEventV1.DATACONTENTTYPE)) {
             messageProperties.put(RocketmqConstants.PROPERTY_CONTENT_TYPE, value);
             return this;
@@ -69,7 +70,7 @@ final class RocketmqMessageWriter implements MessageWriter<CloudEventWriter<Mess
     }
 
     @Override
-    public CloudEventWriter<Message> create(SpecVersion version) throws CloudEventRWException {
+    public CloudEventWriter<Message> create(@NonNull SpecVersion version) throws CloudEventRWException {
         messageProperties.put(RocketmqConstants.MESSAGE_PROPERTY_SPEC_VERSION, version.toString());
         return this;
     }
@@ -83,7 +84,7 @@ final class RocketmqMessageWriter implements MessageWriter<CloudEventWriter<Mess
     }
 
     @Override
-    public Message end(CloudEventData data) throws CloudEventRWException {
+    public Message end(@NonNull CloudEventData data) throws CloudEventRWException {
         messageBuilder.setBody(data.toBytes());
         messageProperties.forEach(messageBuilder::addProperty);
         return messageBuilder.build();

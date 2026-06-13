@@ -23,6 +23,7 @@ import io.cloudevents.core.v1.CloudEventV1;
 import io.cloudevents.rw.*;
 import io.cloudevents.v1.proto.CloudEvent;
 import io.cloudevents.v1.proto.CloudEvent.CloudEventAttributeValue;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -43,8 +44,8 @@ class ProtoDeserializer implements CloudEventReader {
 
     @Override
     public <W extends CloudEventWriter<R>, R> R read(
-        CloudEventWriterFactory<W, R> writerFactory,
-        CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException {
+        @NonNull CloudEventWriterFactory<W, R> writerFactory,
+        @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException {
         SpecVersion specVersion = SpecVersion.parse(this.protoCe.getSpecVersion());
 
         final CloudEventWriter<R> writer = writerFactory.create(specVersion);

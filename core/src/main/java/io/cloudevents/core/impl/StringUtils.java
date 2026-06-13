@@ -17,7 +17,7 @@
 
 package io.cloudevents.core.impl;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 final public class StringUtils {
 
@@ -25,7 +25,7 @@ final public class StringUtils {
         // Prevent construction.
     }
 
-    public static boolean startsWithIgnoreCase(@Nonnull final String s, @Nonnull final String prefix) {
+    public static boolean startsWithIgnoreCase(@NonNull final String s, @NonNull final String prefix) {
         return s.regionMatches(true /* ignoreCase */, 0, prefix, 0, prefix.length());
     }
 }

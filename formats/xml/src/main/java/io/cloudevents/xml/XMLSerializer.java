@@ -27,6 +27,7 @@ import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
 import io.cloudevents.rw.CloudEventWriter;
 import io.cloudevents.types.Time;
+import org.jspecify.annotations.NonNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -146,28 +147,28 @@ class XMLSerializer {
         // CloudEvent Writer ------------------------------------------------------------
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_STRING, value);
             return this;
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, URI value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull URI value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_URI, value.toString());
             return this;
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, OffsetDateTime value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull OffsetDateTime value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_TIMESTAMP, Time.writeTime(value));
             return this;
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException {
 
             if (value instanceof Integer integer) {
                 return withContextAttribute(name, integer);
@@ -177,28 +178,28 @@ class XMLSerializer {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Integer value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Integer value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_INTEGER, value.toString());
             return this;
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_BOOLEAN, value.toString());
             return this;
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, byte[] value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, byte @NonNull [] value) throws CloudEventRWException {
 
             addElement(name, XMLConstants.CE_ATTR_BINARY, Base64.getEncoder().encodeToString(value));
             return this;
         }
 
         @Override
-        public Document end(CloudEventData data) throws CloudEventRWException {
+        public Document end(@NonNull CloudEventData data) throws CloudEventRWException {
 
             if (data instanceof XMLCloudEventData eventData) {
                 writeXmlData(eventData.getDocument());

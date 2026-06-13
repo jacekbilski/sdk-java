@@ -26,6 +26,7 @@ import io.cloudevents.core.CloudEventUtils;
 import io.cloudevents.rw.CloudEventContextReader;
 import io.cloudevents.rw.CloudEventContextWriter;
 import io.cloudevents.rw.CloudEventRWException;
+import org.jspecify.annotations.NonNull;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -55,7 +56,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, String value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull String value) throws CloudEventRWException {
             try {
                 gen.writeStringField(name, value);
                 return this;
@@ -65,7 +66,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Number value) throws CloudEventRWException
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Number value) throws CloudEventRWException
         {
             // Only Integer types are supported by the specification
             if (value instanceof Integer integer) {
@@ -78,7 +79,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Integer value) throws CloudEventRWException
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Integer value) throws CloudEventRWException
         {
             try {
                 gen.writeNumberField(name, value.intValue());
@@ -89,7 +90,7 @@ class CloudEventSerializer extends StdSerializer<CloudEvent> {
         }
 
         @Override
-        public CloudEventContextWriter withContextAttribute(String name, Boolean value) throws CloudEventRWException {
+        public CloudEventContextWriter withContextAttribute(@NonNull String name, @NonNull Boolean value) throws CloudEventRWException {
             try {
                 gen.writeBooleanField(name, value);
                 return this;

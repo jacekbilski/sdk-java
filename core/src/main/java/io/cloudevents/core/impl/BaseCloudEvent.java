@@ -20,6 +20,8 @@ package io.cloudevents.core.impl;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.CloudEventData;
 import io.cloudevents.rw.*;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -43,17 +45,19 @@ public abstract class BaseCloudEvent implements CloudEvent, CloudEventReader, Cl
     }
 
     @Override
-    public Object getExtension(String extensionName) {
+    public @Nullable Object getExtension(@NonNull String extensionName) {
         return this.extensions.get(extensionName);
     }
 
+    @NonNull
     @Override
     public Set<String> getExtensionNames() {
         return this.extensions.keySet();
     }
 
+    @NonNull
     @Override
-    public <T extends CloudEventWriter<V>, V> V read(CloudEventWriterFactory<T, V> writerFactory, CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
+    public <T extends CloudEventWriter<V>, V> V read(@NonNull CloudEventWriterFactory<T, V> writerFactory, @NonNull CloudEventDataMapper<? extends CloudEventData> mapper) throws CloudEventRWException, IllegalStateException {
         CloudEventWriter<V> writer = writerFactory.create(this.getSpecVersion());
         this.readContext(writer);
 

@@ -20,6 +20,7 @@ package io.cloudevents.core.extensions;
 import io.cloudevents.CloudEventExtensions;
 import io.cloudevents.CloudEventExtension;
 import io.cloudevents.core.extensions.impl.ExtensionUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
@@ -86,7 +87,7 @@ public final class DistributedTracingExtension implements CloudEventExtension {
     }
 
     @Override
-    public Object getValue(String key) {
+    public Object getValue(@NonNull String key) {
         switch (key) {
             case TRACEPARENT:
                 return this.traceparent;
