@@ -57,7 +57,7 @@ In order to start learning how to create, access and manipulate `CloudEvent`s,
 check out the [Core module documentation](core.md).
 
 If you want to serialize and deserialize events and data back and forth to JSON,
-check out the [Jackson Json module documentation](json-jackson.md).
+check out the [Jackson JSON module documentation](json-jackson.md).
 
 Depending on the protocol and framework you're using, if you want to send and
 receive CloudEvents, check out the dedicated pages:

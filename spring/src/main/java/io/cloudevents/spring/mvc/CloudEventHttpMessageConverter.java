@@ -39,6 +39,7 @@ import java.io.IOException;
  * @author Dave Syer
  */
 public class CloudEventHttpMessageConverter extends AbstractHttpMessageConverter<CloudEvent> {
+
     public CloudEventHttpMessageConverter() {
         super(MediaType.APPLICATION_OCTET_STREAM, MediaType.ALL);
     }

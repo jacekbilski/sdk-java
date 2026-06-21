@@ -1,6 +1,6 @@
 package io.cloudevents.examples.quarkus.resources;
 
-import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.ObjectMapper;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.examples.quarkus.model.User;
 import io.cloudevents.jackson.JsonFormat;
@@ -25,7 +25,7 @@ public class UserResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    JsonMapper mapper;
+    ObjectMapper mapper;
 
     @Context
     UriInfo uriInfo;

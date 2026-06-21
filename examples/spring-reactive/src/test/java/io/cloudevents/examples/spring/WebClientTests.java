@@ -1,10 +1,7 @@
 package io.cloudevents.examples.spring;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-
+import io.cloudevents.CloudEvent;
+import io.cloudevents.core.builder.CloudEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import io.cloudevents.CloudEvent;
-import io.cloudevents.core.builder.CloudEventBuilder;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test case to show example usage of WebClient and CloudEvent. The actual
@@ -26,8 +25,9 @@ import reactor.core.publisher.Mono;
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class WebClientTests {
+
     @Autowired
-    private WebClient.Builder rest;
+    private WebClient.Builder testClient;
 
     @LocalServerPort
     private int port;
@@ -46,15 +46,12 @@ class WebClientTests {
 
     @Test
     void echoWithCorrectHeaders() {
-
-        Mono<CloudEvent> result = rest.build() //
+        Mono<CloudEvent> result = testClient.build() //
                 .post() //
                 .uri("http://localhost:" + port + "/event") //
                 .bodyValue(event) //
                 .exchangeToMono(response -> response.bodyToMono(CloudEvent.class));
 
         assertThat(result.block().getData()).isEqualTo(event.getData());
-
     }
-
 }

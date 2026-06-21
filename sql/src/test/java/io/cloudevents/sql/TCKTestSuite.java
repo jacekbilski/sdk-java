@@ -22,7 +22,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TCKTestSuite {
+public class TCKTestSuite {
+
     public static class TestSuiteModel {
         public String name;
         public List<TestCaseModel> tests;
@@ -95,7 +96,9 @@ class TCKTestSuite {
     }
 
     public Stream<Map.Entry<String, TestCaseModel>> tckTestCases() {
-        ObjectMapper mapper = YAMLMapper.builder().addModule(JsonFormat.getCloudEventJacksonModule()).build();
+        ObjectMapper mapper = YAMLMapper.builder()
+            .addModule(JsonFormat.getCloudEventJacksonModule())
+            .build();
 
         // Files to load
         Stream<String> tckFiles = Stream.of(
@@ -127,7 +130,6 @@ class TCKTestSuite {
                 } catch (URISyntaxException e) {
                     throw new RuntimeException(fileName, e);
                 }
-
             })
             .filter(Objects::nonNull)
             .flatMap(m -> m.tests.stream().map(tc -> new AbstractMap.SimpleImmutableEntry<>(m.name + ": " + tc.name, tc)));

@@ -53,14 +53,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WebFluxRestControllerTests {
     private static final String BODY = "{\"value\":\"Dave\"}";
 
-    private RestTestClient rest;
+    private RestTestClient testClient;
 
     @LocalServerPort
     private int port;
 
     @BeforeEach
     void setUp() {
-        rest = RestTestClient
+        testClient = RestTestClient
             .bindToServer()
             .baseUrl(String.format("http://localhost:%d/", port))
             .build();
@@ -68,7 +68,7 @@ class WebFluxRestControllerTests {
 
     @Test
     void echoWithCorrectHeaders() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .header("ce-id", "12345") //
             .header("ce-specversion", "1.0") //
             .header("ce-type", "io.spring.event") //
@@ -94,7 +94,7 @@ class WebFluxRestControllerTests {
 
     @Test
     void structuredRequestResponseEvents() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .uri("event")
             .contentType(new MediaType("application", "cloudevents+json")) //
             .body(String.format(
@@ -127,7 +127,7 @@ class WebFluxRestControllerTests {
 
     @Test
     void requestResponseEvents() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .uri("event")
             .header("ce-id", "12345") //
             .header("ce-specversion", "1.0") //
@@ -173,6 +173,7 @@ class WebFluxRestControllerTests {
 
         @Configuration
         public static class CloudEventHandlerConfiguration implements WebFluxConfigurer {
+
             @Override
             public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
                 configurer.customCodecs().register(new CloudEventHttpMessageReader());

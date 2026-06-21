@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -51,17 +50,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class MvcRestControllerTests {
+
     private static final String BODY = "{\"value\":\"Dave\"}";
 
-    private RestTestClient rest;
+    private RestTestClient testClient;
 
     @LocalServerPort
     private int port;
 
-
     @BeforeEach
     void setUp() {
-        rest = RestTestClient
+        testClient = RestTestClient
             .bindToServer()
             .baseUrl(String.format("http://localhost:%d/", port))
             .build();
@@ -69,7 +68,7 @@ class MvcRestControllerTests {
 
     @Test
     void echoWithCorrectHeaders() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .header("ce-id", "12345") //
             .header("ce-specversion", "1.0") //
             .header("ce-type", "io.spring.event") //
@@ -95,7 +94,7 @@ class MvcRestControllerTests {
 
     @Test
     void structuredRequestResponseEvents() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .uri("event")
             .contentType(new MediaType("application", "cloudevents+json"))
             .body(String.format(
@@ -128,7 +127,7 @@ class MvcRestControllerTests {
 
     @Test
     void requestResponseEvents() {
-        ExchangeResult response = rest.post()
+        ExchangeResult response = testClient.post()
             .uri("event")
             .header("ce-id", "12345") //
             .header("ce-specversion", "1.0") //
@@ -180,6 +179,7 @@ class MvcRestControllerTests {
 
         @Configuration
         public static class CloudEventHandlerConfiguration implements WebMvcConfigurer {
+
             @Override
             public void configureMessageConverters(HttpMessageConverters.ServerBuilder builder) {
                 builder.addCustomConverter(new CloudEventHttpMessageConverter());
